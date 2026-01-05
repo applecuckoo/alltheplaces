@@ -1,5 +1,3 @@
-import binascii
-import hashlib
 from html import unescape
 
 from scrapy.spiders import CSVFeedSpider
@@ -20,6 +18,7 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
     start_urls = ["https://es.hkfsd.gov.hk/aed_api/export_aed.php?lang=EN"]
     delimiter = ","
     quotechar = '"'
+    no_refs = True
 
     item_attributes = {
         # Uncomment and populate if known
@@ -37,11 +36,6 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
 
     def parse_row(self, response, row):
         i = Feature()
-        # silly temp ID generator
-        h = hashlib.new("sha256")
-        id_unhashed = str(row).encode()
-        h.update(id_unhashed)
-        i["ref"] = binascii.b2a_hex(h.digest()).decode("utf-8")
         i["name"] = unescape(row["AED Name"])
         i["lat"] = row["Location Google Map coordinate: latitude"]
         i["lon"] = row["Location Google Map coordinate: longitude"]
