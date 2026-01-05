@@ -39,5 +39,12 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
         i["name"] = unescape(row["AED Name"])
         i["lat"] = row["Location Google Map coordinate: latitude"]
         i["lon"] = row["Location Google Map coordinate: longitude"]
+        i["addr_full"] = row["AED Address"]
+        i["extras"] = {
+            "defibrillator:location": row["Detailed location of the AED installed"],
+            "description": row["AED remark"],
+            "manufacturer": row["AED brand"],
+            "model": row["AED model"],
+        }
         apply_category(Categories.DEFIBRILLATOR, i)
         return i
