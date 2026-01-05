@@ -1,5 +1,6 @@
 import binascii
 import hashlib
+from html import unescape
 
 from scrapy.spiders import CSVFeedSpider
 
@@ -41,7 +42,7 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
         id_unhashed = str(row).encode()
         h.update(id_unhashed)
         i["ref"] = binascii.b2a_hex(h.digest()).decode("utf-8")
-        i["name"] = row["AED Name"]
+        i["name"] = unescape(row["AED Name"])
         i["lat"] = row["Location Google Map coordinate: latitude"]
         i["lon"] = row["Location Google Map coordinate: longitude"]
         apply_category(Categories.DEFIBRILLATOR, i)
