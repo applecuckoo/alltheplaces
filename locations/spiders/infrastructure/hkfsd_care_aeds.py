@@ -30,10 +30,10 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
     }
 
     # Do any adaptations you need here
-    def adapt_response(self, response):
+    # def adapt_response(self, response):
         # fix for some values which have been single or even double encoded into HTML entities
-        fixed_response = response.replace(body=unescape(unescape(response.text)))
-        return fixed_response
+        # fixed_response = response.replace(body=unescape(unescape(response.text)))
+        # return fixed_response
 
     def parse_row(self, response, row):
         i = Feature()
