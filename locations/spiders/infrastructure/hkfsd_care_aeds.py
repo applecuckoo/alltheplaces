@@ -36,7 +36,7 @@ class HKFSDCareAEDsSpider(CSVFeedSpider):
 
     def parse_row(self, response, row):
         i = Feature()
-        i["name"] = unescape(row["AED Name"])
+        i["located_in"] = unescape(row["AED Name"])
         i["lat"] = row["Location Google Map coordinate: latitude"]
         i["lon"] = row["Location Google Map coordinate: longitude"]
         i["addr_full"] = row["AED Address"]
